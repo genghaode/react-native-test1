@@ -1,54 +1,39 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
-
+import { View, Text, Dimensions } from 'react-native'
+const W = Dimensions.get('window').width
 const flexCenter = {
   alignItems: 'center',
   justifyContent: 'center'
 }
-
+const boxW = (W - 60) / 3
 const boxStyle = {
-  flex: 1,
+  width: boxW,
+  height: boxW,
   backgroundColor: '#666',
   ...flexCenter
 }
-const cellStyle = {
-  height: 100,
-  width: 300,
-  flexDirection: 'row'
-}
+
 const textStyle = {
   color: '#000099',
   fontSize: 30,
   fontWeight: 'bold'
 }
-const borderBottomStyle = {
-  borderBottomWidth: 1,
-  borderColor: '#797979'
-}
-const borderLeftStyle = {
-  borderLeftWidth: 1,
-  borderRightWidth: 1,
-  borderColor: '#797979'
-}
+
 
 export const Example2 = () => {
   return (
-    <View style={{flex: 1, ...flexCenter}}>
-				<View style={{...cellStyle, ...borderBottomStyle}}>
-					<View style={{...boxStyle}}><Text style={{...textStyle}}>1</Text></View>
-					<View  style={{...boxStyle, ...borderLeftStyle}}><Text style={{...textStyle}}>2</Text></View>
-					<View style={{...boxStyle}}><Text style={{...textStyle}}>3</Text></View>
-				</View>
-				<View style={{...cellStyle, ...borderBottomStyle}}>
-					<View style={{...boxStyle}}><Text style={{...textStyle}}>4</Text></View>
-					<View style={{...boxStyle, ...borderLeftStyle}}><Text style={{...textStyle}}>5</Text></View>
-					<View style={{...boxStyle}}><Text style={{...textStyle}}>6</Text></View>
-				</View>
-				<View style={{...cellStyle}}>
-					<View style={{...boxStyle}}><Text style={{...textStyle}}>7</Text></View>
-					<View style={{...boxStyle, ...borderLeftStyle}}><Text style={{...textStyle}}>8</Text></View>
-					<View  style={{...boxStyle}}><Text style={{...textStyle}}>9</Text></View>
-				</View>
-		</View>
+    <View style={{flex: 1,...flexCenter }}>
+      <View style={{flexDirection: 'row', flexWrap: 'wrap', borderWidth: 1, borderColor: '#797979' }}>
+        {
+          [1,2,3,4,5,6,7,8,9].map((item, i)=> {
+            console.log(i%6)
+            return (
+              <View key={i} style={{...boxStyle, borderLeftWidth:i%3 !=0?1:0, borderBottomWidth: i>6?0:1, borderColor: '#797979'}}><Text style={{...textStyle}}>{item}</Text></View>
+            )
+          })
+        }
+      </View>      
+    </View>
+
   )
 }
